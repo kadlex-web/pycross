@@ -1,9 +1,6 @@
 import pygame # type:ignore
 
-class Cell(pygame.Rect):
-    def __init__(self, top, left, width, height):
-        self._top = top
-        self._left = left
-        self._width = width
-        self.height = height
-        
+class Cell():
+    def __init__(self, left, top, width, height):
+        self.rect = pygame.Rect(left, top, width, height)
+        self.toggle = False
