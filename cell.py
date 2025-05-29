@@ -1,6 +1,7 @@
 import pygame # type:ignore
 
-class Cell():
+class Cell:
     def __init__(self, left, top, width, height):
         self.rect = pygame.Rect(left, top, width, height)
+        self.color = "white"
         self.toggle = False

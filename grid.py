@@ -1,7 +1,7 @@
 import pygame # type:ignore
 from cell import Cell
 
-# Creates and builds the grid object
+# Creates and builds the Grid object
 class Grid:
     def __init__(self, num_cols, num_rows, surface=None):
         # Number of columns the grid has
@@ -14,7 +14,7 @@ class Grid:
         self.cell_list = []
         self._create_grid()
 
-    # Builds a grid object filled with Cell objects
+    # Builds a Grid object which creates the visual boundaries of the puzzle
     def _create_grid(self):
         width = 100
         height = 100
@@ -23,6 +23,14 @@ class Grid:
 
         for i in range(self._num_cols):
             for j in range(self._num_rows):
-                cell = Cell(100+(i*init_top), 100+(j*init_left), width, height)
+                box = pygame.Rect(100+(i*init_top), 100+(j*init_left), width, height)
+                cell = Cell(101+(i*init_top), 101+(j*init_left), width-1, height-1)
                 self.cell_list.append(cell)
-                pygame.draw.rect(self._surface, "black", cell.rect, width=1)
+                pygame.draw.rect(self._surface, "black", box, width=1)
+                pygame.draw.rect(self._surface,"white", cell)
+
+
+    # Renders the grid object on the Pygame surface
+    def render(self):
+        for cell in self.cell_list:
+            pygame.draw.rect(self._surface, color=cell.color, rect=cell)
