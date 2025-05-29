@@ -1,9 +1,10 @@
 import pygame # type:ignore
 from cell import Cell
+from puzzle import Puzzle
 
 # Creates and builds the Grid object
 class Grid:
-    def __init__(self, num_cols, num_rows, surface=None):
+    def __init__(self, num_cols, num_rows, surface=None, puzzle=None):
         # Number of columns the grid has
         self._num_cols = num_cols
         # Num of rows the grid has
@@ -12,9 +13,11 @@ class Grid:
         self._surface = surface
         # builds and initializes the grid object
         self.cell_list = []
+        self.puzzle = puzzle
         self._create_grid()
 
     # Builds a Grid object which creates the visual boundaries of the puzzle
+    # Also generates the Cell objects that live inside the grid
     def _create_grid(self):
         width = 100
         height = 100
@@ -33,9 +36,21 @@ class Grid:
                 else:
                     cell = Cell(102+(i*init_top), 102+(j*init_left), width-2, height-2)
                 self.cell_list.append(cell)
+                cell.location = (i,j)
                 pygame.draw.rect(self._surface, "black", box, 2)
 
     # Renders the Cell objects on the pygame.Surface
     def _render(self):
         for cell in self.cell_list:
             pygame.draw.rect(self._surface, color=cell.color, rect=cell)
+    
+    def check_puzzle(self):
+        print("checking puzzle")
+        matched_cells = 0
+        for cell in self.cell_list:
+            if cell.toggle == self.puzzle.answer[cell.location[1]][cell.location[0]]:
+                matched_cells += 1
+        if matched_cells == (self._num_cols * self._num_rows):
+            print("puzzle solved!")
+        else:
+            print("no solution yet")

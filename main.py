@@ -1,11 +1,15 @@
 import sys, pygame # type:ignore
 from grid import Grid
+from interface import Text
+from puzzle import Puzzle
 
 pygame.init()
-size = width, height = 700, 700
+size = width, height = 1024, 780
 screen = pygame.display.set_mode(size)
 screen.fill("white")
-grid = Grid(5, 5, screen)
+test_puzzle = Puzzle()
+grid = Grid(5, 5, screen, test_puzzle)
+screen.blit(Text.surface_text, (200,10))
 grid._render()
 
 while True:
@@ -23,10 +27,13 @@ while True:
                     if pygame.Rect.collidepoint(cell.rect, click_x, click_y):
                         if not cell.toggle:
                             cell.color = "gray"
-                            cell.toggle = True
+                            cell.toggle = 1
                         elif cell.toggle:
                             cell.color = "white"
-                            cell.toggle = False
+                            cell.toggle = 0
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                grid.check_puzzle()
 
     grid._render() # Renders the updated puzzle
     pygame.display.update() # Displays the new board
