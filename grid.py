@@ -24,13 +24,18 @@ class Grid:
         for i in range(self._num_cols):
             for j in range(self._num_rows):
                 box = pygame.Rect(100+(i*init_top), 100+(j*init_left), width, height)
-                cell = Cell(101+(i*init_top), 101+(j*init_left), width-1, height-1)
+                if j == (self._num_rows-1) and i == (self._num_cols-1):
+                    cell = Cell(102+(i*init_top), 102+(j*init_left), width-4, height-4)
+                elif i == (self._num_cols-1):
+                    cell = Cell(102+(i*init_top), 102+(j*init_left), width-4, height-2)
+                elif j == (self._num_rows-1):
+                    cell = Cell(102+(i*init_top), 102+(j*init_left), width-2, height-4)
+                else:
+                    cell = Cell(102+(i*init_top), 102+(j*init_left), width-2, height-2)
                 self.cell_list.append(cell)
-                pygame.draw.rect(self._surface, "black", box, width=1)
-                pygame.draw.rect(self._surface,"white", cell)
+                pygame.draw.rect(self._surface, "black", box, 2)
 
-
-    # Renders the grid object on the Pygame surface
-    def render(self):
+    # Renders the Cell objects on the pygame.Surface
+    def _render(self):
         for cell in self.cell_list:
             pygame.draw.rect(self._surface, color=cell.color, rect=cell)

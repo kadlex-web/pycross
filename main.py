@@ -2,11 +2,11 @@ import sys, pygame # type:ignore
 from grid import Grid
 
 pygame.init()
-size = width, height = 1024, 768
-screen = pygame.display.set_mode((1280,720))
+size = width, height = 700, 700
+screen = pygame.display.set_mode(size)
 screen.fill("white")
 grid = Grid(5, 5, screen)
-grid.render()
+grid._render()
 
 while True:
     for event in pygame.event.get():
@@ -28,5 +28,5 @@ while True:
                             cell.color = "white"
                             cell.toggle = False
 
-    grid.render() # Renders the updated puzzle
+    grid._render() # Renders the updated puzzle
     pygame.display.update() # Displays the new board
