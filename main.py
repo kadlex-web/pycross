@@ -31,6 +31,7 @@ while True:
                         elif cell.toggle:
                             cell.color = "white"
                             cell.toggle = 0
+        # If user presses the 'A' key -- the puzzle will be checked. If a solution is found, the game exits
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 grid.check_puzzle()

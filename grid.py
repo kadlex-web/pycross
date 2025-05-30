@@ -1,6 +1,6 @@
 import pygame # type:ignore
+import sys
 from cell import Cell
-from puzzle import Puzzle
 
 # Creates and builds the Grid object
 class Grid:
@@ -17,7 +17,7 @@ class Grid:
         self._create_grid()
 
     # Builds a Grid object which creates the visual boundaries of the puzzle
-    # Also generates the Cell objects that live inside the grid
+    # Also generates the Cell objects that exist inside the grid
     def _create_grid(self):
         width = 100
         height = 100
@@ -44,6 +44,7 @@ class Grid:
         for cell in self.cell_list:
             pygame.draw.rect(self._surface, color=cell.color, rect=cell)
     
+    # Checks the puzzle that is currently loaded for a solution
     def check_puzzle(self):
         print("checking puzzle")
         matched_cells = 0
@@ -52,5 +53,10 @@ class Grid:
                 matched_cells += 1
         if matched_cells == (self._num_cols * self._num_rows):
             print("puzzle solved!")
+            sys.exit()
         else:
             print("no solution yet")
+
+    # Loads a new puzzle into the grid
+    def load_puzzle(self, new_puzzle):
+        self.puzzle = new_puzzle
