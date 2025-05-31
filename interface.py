@@ -11,3 +11,10 @@ class Text:
     font = pygame.font.SysFont(None, 100)
     text = "Puzzle 1"
     surface_text = pygame.font.Font.render(font, text, True, "black")
+
+class Title_Screen:
+    def __init__(self):
+        pygame.font.init()
+        font = pygame.font.SysFont(None, 100)
+        text = "Start Puzzle"
+        pygame.font.Font.render(font, text, True, "black")

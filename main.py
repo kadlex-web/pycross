@@ -9,7 +9,6 @@ screen = pygame.display.set_mode(size)
 screen.fill("white")
 test_puzzle = Puzzle()
 grid = Grid(5, 5, screen, test_puzzle)
-screen.blit(Text.surface_text, (200,10))
 grid._render()
 
 while True:
