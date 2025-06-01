@@ -46,14 +46,13 @@ class Grid:
     
     # Checks the puzzle that is currently loaded for a solution
     def check_puzzle(self):
-        print("checking puzzle")
         matched_cells = 0
         for cell in self.cell_list:
             if cell.toggle == self.puzzle.answer[cell.location[1]][cell.location[0]]:
                 matched_cells += 1
         if matched_cells == (self._num_cols * self._num_rows):
-            print("puzzle solved!")
-            sys.exit()
+            return True
+        return False
 
     # Loads a new puzzle into the grid
     def load_puzzle(self, new_puzzle):
