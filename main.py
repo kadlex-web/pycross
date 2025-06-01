@@ -89,26 +89,36 @@ def completed_puzzle():
         pygame.display.update()
         
 
-# Screen that displays a puzzle that a user can solve
+# Screen that displays a puzzle that a user can solve with the ability to check or exit the puzzle
 def play():
+    # Clear the previous screen, create the Puzzle object, loads the Puzzle object it into the grid and generates the grid
     screen.fill("white")
     test_puzzle = Puzzle()
     grid = Grid(5,5, screen, test_puzzle)
 
-
+    # Check Puzzle Button
     title_font = pygame.font.SysFont(None, 50)
     title_text = pygame.font.Font.render(title_font, "Check Puzzle", True, "black")
     cb_width, cb_height = title_text.get_size()
-    check_button = pygame.Rect(700, 600, cb_width,cb_height)
+    check_button = pygame.Rect(700, 200, cb_width,cb_height)
     pygame.draw.rect(screen, "grey", check_button)
-    screen.blit(title_text, (700, 600))
+    screen.blit(title_text, (700, 200))
+
+    # Quit Button
+    quit_font = pygame.font.SysFont(None, 50)
+    quit_text = pygame.font.Font.render(quit_font, "Quit Game", True, "black")
+    qb_width, qb_height = quit_text.get_size()
+    qbutton_x, qbutton_y = 700, 500
+    q_button = pygame.Rect(qbutton_x, qbutton_y, qb_width, qb_height)
+    pygame.draw.rect(screen, "grey", q_button)
+    screen.blit(quit_text, (qbutton_x, qbutton_y))
 
     grid._render()
 
     while True:
         for event in pygame.event.get():
             # listen for quit
-            if event.type == pygame.QUIT: 
+            if event.type == pygame.QUIT:
                 sys.exit()
             #listen for mouse click
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -129,7 +139,11 @@ def play():
                         if grid.check_puzzle():
                             completed_puzzle()
 
-        grid._render()
-        pygame.display.update() # Displays the new board
+                    elif pygame.Rect.collidepoint(q_button, click_x, click_y):
+                            pygame.quit()
+                            sys.exit()
+
+        grid._render() # Updates the game board on the surface
+        pygame.display.update() # Updates the screen based upon user input
 
 main_menu()
