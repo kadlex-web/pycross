@@ -54,8 +54,6 @@ class Grid:
         if matched_cells == (self._num_cols * self._num_rows):
             print("puzzle solved!")
             sys.exit()
-        else:
-            print("no solution yet")
 
     # Loads a new puzzle into the grid
     def load_puzzle(self, new_puzzle):

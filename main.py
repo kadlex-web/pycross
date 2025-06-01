@@ -43,6 +43,15 @@ def play():
     screen.fill("white")
     test_puzzle = Puzzle()
     grid = Grid(5,5, screen, test_puzzle)
+
+
+    title_font = pygame.font.SysFont(None, 50)
+    title_text = pygame.font.Font.render(title_font, "Check Puzzle", True, "black")
+    cb_width, cb_height = title_text.get_size()
+    check_button = pygame.Rect(700, 600, cb_width,cb_height)
+    pygame.draw.rect(screen, "grey", check_button)
+    screen.blit(title_text, (700, 600))
+
     grid._render()
 
     while True:
@@ -64,10 +73,9 @@ def play():
                             elif cell.toggle:
                                 cell.color = "white"
                                 cell.toggle = 0
-            # If user presses the 'A' key -- the puzzle will be checked. If a solution is found, the game exits
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    grid.check_puzzle()
+
+                    if pygame.Rect.collidepoint(check_button, click_x, click_y):
+                        grid.check_puzzle()
 
         grid._render()
         pygame.display.update() # Displays the new board
