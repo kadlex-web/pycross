@@ -3,8 +3,8 @@ import pygame #type:ignore
 class Puzzle:
     def __init__(self):
         self.answer = [
-            [1,1,1,1,1],
-            [1,1,1,0,1],
+            [1,0,1,0,1],
+            [0,1,1,0,1],
             [1,1,0,1,1],
             [0,0,1,1,1],
             [1,0,0,1,1]
@@ -40,6 +40,7 @@ class Puzzle:
 
         return row_clue_lists
     
+    # Generate a list of lists that correspond to the column clues that need to be printed on the puzzle    
     def column_clues(self):
         column_clue_lists = []
     

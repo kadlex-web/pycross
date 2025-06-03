@@ -6,6 +6,8 @@ pygame.init()
 pygame.font.init()
 size = 1024, 780
 screen = pygame.display.set_mode(size)
+clock = pygame.time.Clock()
+FPS = 30 # lock the frames at 30 FPS -- it's a puzzle game. why more frames!
 
 # Main Menu that allows the user to begin a puzzle or exit
 def main_menu():
@@ -39,6 +41,7 @@ def main_menu():
                     # if the user clicks the start button on the title -- the test puzzle should be loaded for the user to interact with
                     if pygame.Rect.collidepoint(title_button, click_x, click_y):
                         play()
+        clock.tick(FPS)
         pygame.display.update()
 
 # Screen that appears after a puzzle is completed -- allows user to return to main menu or quit
@@ -85,7 +88,7 @@ def completed_puzzle():
                     elif pygame.Rect.collidepoint(q_button, click_x, click_y):
                         pygame.quit()
                         sys.exit()
-
+        clock.tick(FPS)
         pygame.display.update()
         
 
@@ -112,8 +115,6 @@ def play():
     q_button = pygame.Rect(qbutton_x, qbutton_y, qb_width, qb_height)
     pygame.draw.rect(screen, "grey", q_button)
     screen.blit(quit_text, (qbutton_x, qbutton_y))
-
-    grid._render()
 
     while True:
         for event in pygame.event.get():
@@ -144,6 +145,7 @@ def play():
                             sys.exit()
 
         grid._render() # Updates the game board on the surface
+        clock.tick(FPS)
         pygame.display.update() # Updates the screen based upon user input
 
 main_menu()

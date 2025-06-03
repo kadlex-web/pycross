@@ -15,6 +15,7 @@ class Grid:
         self.cell_list = []
         self.puzzle = puzzle
         self._create_grid()
+        self._create_clues()
 
     # Builds a Grid object which creates the visual boundaries of the puzzle
     # Also generates the Cell objects that exist inside the grid
@@ -24,6 +25,7 @@ class Grid:
         init_top = 100
         init_left = 100
 
+        # Generate the grid of squares for solving and save them to a list
         for i in range(self._num_cols):
             for j in range(self._num_rows):
                 box = pygame.Rect(100+(i*init_top), 100+(j*init_left), width, height)
@@ -38,6 +40,30 @@ class Grid:
                 self.cell_list.append(cell)
                 cell.location = (i,j)
                 pygame.draw.rect(self._surface, "black", box, 2)
+
+    def _create_clues(self):
+        # Generate the row clues and column clues and draw them on the grid
+        row_clues = self.puzzle.row_clues()
+        count = 1
+        row_x = 15
+        for row_clue in row_clues:
+            row_y = (count * 100) + 30
+            for i in range(len(row_clue)):
+                clue_font = pygame.font.SysFont(None, 50)
+                clue_text = pygame.font.Font.render(clue_font, f'{row_clue[i]}', True, "blue")
+                self._surface.blit(clue_text, (row_x + (i*30), row_y))
+            count += 1
+
+        column_clues = self.puzzle.column_clues()
+        count = 1
+        row_y = 15
+        for column_clue in column_clues:
+            row_x = (count * 100) + 30
+            for i in range(len(column_clue)):
+                clue_font = pygame.font.SysFont(None, 40)
+                clue_text = pygame.font.Font.render(clue_font, f'{column_clue[i]}', True, "blue")
+                self._surface.blit(clue_text, (row_x, row_y + (i*30)))
+            count += 1                
 
     # Renders the Cell objects on the pygame.Surface
     def _render(self):
